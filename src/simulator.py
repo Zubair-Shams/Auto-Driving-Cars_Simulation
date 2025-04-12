@@ -57,12 +57,10 @@ class Simulator:
                         
                         #collision will detected here
                         if next_x == ox and next_y == oy:
-                            # print(f"- {car.name}, collides with {other['car'].name} at ({next_x},{next_y}) at step {step + 1}")
-                            # print(f"- {other['car'].name}, collides with {car.name} at ({next_x},{next_y}) at step {step + 1}")
-                            
+ 
                             # build the message from current car’s point of view
-                            car1_name = car.name                 # get name of car that is moving
-                            car2_name = other['car'].name          # get name of the other car it crashed into
+                            car1_name = car.Carname  # get name of car that is moving
+                            car2_name = other['car'].Carname   # get name of the other car it crashed into         
                             collision_x = next_x                  # x coordinates where they both hit
                             collision_y = next_y                  # y coocoordinats where the car both hit
                             collision_step = step + 1               # step number (1-indexed, looks better)
@@ -85,4 +83,5 @@ class Simulator:
         for data in self.car_data:
             car = data['car']
             if car.active:
-                print(f"- {car.name}, ({car.x},{car.y}) {car.direction}")
+                print(f"- {car.Carname}, ({car.x},{car.y}) {car.direction}")
+

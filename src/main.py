@@ -85,8 +85,8 @@ def start_simulation():
             # Print all cars
             print("\n\n\nYour current list of cars are::")
             for c in car_list:
-                All_cars = c['car']
-                print(f"- {All_cars.name}, ({All_cars.x},{All_cars.y}) {All_cars.direction}, {c['commands']}")
+                this_car = c['car']
+                print(f"- {this_car.Carname}, ({this_car.x},{this_car.y}) {this_car.direction}, {c['commands']}")
 
         elif chocie == '2':
             # let user konw simulatino is about to start
@@ -115,11 +115,11 @@ def start_simulation():
             again = input().strip()
 
             if again == '1': # if u/user chose to start again, call the same main function
-                start_simulation()
+                break  # exit inner loop and restart from the top again
             else:
-                 # any other option will end the application with goodbye output
                 print("\nThank you for running the simulation. Goodbye!")
-                break
+                return  # fully exit the simulation function
+
 
         else:
             # if user can enter something that isn't 1 or 2
