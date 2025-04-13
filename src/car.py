@@ -21,15 +21,14 @@ class Car:
 
 # ****************************** Rotation Toward Left ***************************
 
+""" Turning the car left (90 degrees). Finds which direction the car is facing right now, moving one step back in the direction list 
+If it going before the first one, it jumps to the last oneUpdates the car  direction after turnning"""
     def rotate_left(self):
 
-        # get the index of current direction (like N = 0, E = 1, etc.)
         curr_index = Car.DIRECTIONS.index(self.direction)
 
-        # move 1 step left in list (anticlockwise)
         new_indx = curr_index - 1
 
-        # wrap around if needed which not allow to go into negative area
         if new_indx < 0:
             new_indx = 3  # manually loop to the last item to iterate
 
@@ -40,26 +39,22 @@ class Car:
 
     def rotate_right(self):
 
-        # get the index of currnt direction
         curr_index = Car.DIRECTIONS.index(self.direction)
 
         # move 1 step to the right (clockwise)
         new_indx = curr_index + 1
 
-        # if index goes past last item, wrapping to around to 0
         if new_indx >= 4:
             new_indx = 0
 
-        # updating the car direction
         self.direction = Car.DIRECTIONS[new_indx]
 
 # ****************************** Rotation Toward Forward ***************************
 
     def move_forward(self):
-        # getting the dirction of the car is facing (like 'N' or 'E')
+
         current_dir = self.direction
 
-        # geting the change in x and y based on current direction
         move_values = Car.MOVES[current_dir]  # like (0, 1) if facing North
 
         direction_x = move_values[0]  # how much x should change
@@ -69,7 +64,6 @@ class Car:
         new_x = self.x + direction_x
         new_y = self.y + direction_y
 
-        # return the new position so we can check/collision later
         return new_x, new_y
 
 

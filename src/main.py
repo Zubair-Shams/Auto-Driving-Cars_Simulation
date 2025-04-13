@@ -3,71 +3,99 @@
 from car import Car
 from field import Field
 from simulator import Simulator  #importing
-
-# Ask the developer/user to enter the size of the simulation field which should be width x height.
+    """
+    Ask the developer/user to enter the size of the simulation field which should be width x height.
+    i used infinte loop to get the correct input
+    using try and catech to get the error incase of any issue 
+    checking that input is get exactly two values, if not then give error
+    converting the heights and width into int from strings
+    confirming that both heigth and wight is not in negative 
+    return the values of width and height in form (10, 10) tupel
+    give error incaes of any issue
+    """
 def input_field_size():
-    while True: # i used infinte loop to get the correct input
-        try: # using try and catech to get the error incase of any issue 
+
+    while True:
+        try: 
             getInput = input("Please enter the weidth and height of the simulation field in X Y formate:\n").split()
 
-            if len(getInput) != 2: #checking that input is get exactly two values, if not then give error
+            if len(getInput) != 2:
                 raise ValueError
 
-            wight, heights = map(int, getInput) #converting the heights and width into int from strings
+            wight, heights = map(int, getInput) 
 
-            if wight <= 0 or heights <= 0:  #confirming that both heigth and wight is not in negative 
+            if wight <= 0 or heights <= 0:  
                 raise ValueError
 
-            return wight, heights  #return the values of width and height in form (10, 10) tupel
+            return wight, heights  
 
-        except ValueError: #give error incaes of any issue
+        except ValueError: 
             print("Invaliad. Please type two posiitive number, like: 10 10")
 
-# collec detail for a new car: like name, starting position, direction, and movement command
+    """
+    collec detail for a new car: like name, starting position, direction, and movement command
+    need to give car name
+    getting starting line and direction position in 1 line like (1 2 N)
+    constraint to get the correct direction and 3 part like above
+    convert x, and y into number(int) and not convert dir
+    show message if user did something wrong like missing value or bad dir
+    asking for movements commands (F = forward, L = left, R = right) from user
+    return all info back so caller function so can use it
+    """
 def ading_car():
-    nameOfCar = input("Please enterr the name of the car:?\n").strip() #need to give car name
+    nameOfCar = input("Please enterr the name of the car:?\n").strip() 
     while True:
         try:
-            #getting starting line and direction position in 1 line like (1 2 N)
+            
             Dirction = input(f"\nPlease enter initial position of car {nameOfCar} in x y Direction format: (x y D):\n").split()
             
-            if len(Dirction) != 3 or Dirction[2] not in ['N', 'S', 'E', 'W']: #constraint to get the correct direction and 3 part like above
+            if len(Dirction) != 3 or Dirction[2] not in ['N', 'S', 'E', 'W']: 
                 raise ValueError
 
-            x, y = int(Dirction[0]), int(Dirction[1]) # convert x, and y into number(int) and not convert dir
+            x, y = int(Dirction[0]), int(Dirction[1]) 
             dir = Dirction[2] 
             break
 
-        except ValueError: #show message if user did something wrong like missing value or bad dir
+        except ValueError: 
             print("Oops. Use formate like '1 2 N'. Direction must like N, S, E, or W.")
 
-    # asking for movements commands (F = forward, L = left, R = right) from user
+    
     cmds = input(f"Please enter the commands for CAR {nameOfCar} (F/L/R):\n").strip().upper()
 
-    return nameOfCar, x, y, dir, cmds     # return all info back so caller function so can use it
+    return nameOfCar, x, y, dir, cmds     
 
 
-# Entry point of the simuletion programe
+"""
+Entry point of the simulation program.
+in this function use can enter the with and hight which give furteher more cars with name, position, direction and movment
+Stores all added cars and their commands in a list
+stroing all the cars information and run the program step by step to process for each car
+this program detecting the car collision and stop the cars which are in and give functionality to restart the simulation again or exit
+"""
+
 def start_simulation():
-    print("\n- Welcome to Auto Driving Car Simulation! ") #wlecome message when the Simulation Starts
+    print("\n- Welcome to Auto Driving Car Simulation! ") 
 
-    # Seting the Field/gred (user can gives the width and the height)
+   
     width, height = input_field_size()
     print(f"\nYou have To created a feild of 10 X 10. {width} x {height}")
 
-    car_list = [] # holding all the cars added by user
+    car_list = [] 
 
     while True:
-        # Menu for users for adding a car or to the run the simulation
+        
         print("\nWhat would you like to do is?")
         print("[1] Adding a new Car")
         print("[2] Run The simuletion")
         chocie = input().strip()
 
+"""collect the car info and create car object
+    collect informtion from user like Carname, pos, dir, cmd
+    """
         if chocie == '1':
-            # collect the car info and create car object
             
-            result = ading_car()  # collect informtion from user like Carname, pos, dir, cmd
+            
+            result = ading_car()  
 
             Carname = result[0]  # car name like "A" or "B"
             x = result[1]     # getting x position of the car
@@ -82,21 +110,17 @@ def start_simulation():
                 'commands': cmds
             })
 
-            # Print all cars
+         
             print("\n\n\nYour current list of cars are::")
             for c in car_list:
                 this_car = c['car']
                 print(f"- {this_car.Carname}, ({this_car.x},{this_car.y}) {this_car.direction}, {c['commands']}")
 
         elif chocie == '2':
-            # let user konw simulatino is about to start
-            print("\n- After simulation, the results is: ")
-            # pass all details and stuff to simulator class and run the simulation
             
-            # first set the width for the simulation that input in start
+            print("\n- After simulation, the results is: ")
+            
             field_width = width
-
-            # same for height,
             field_height = height
 
             # all cars that user added are already in car list
@@ -104,27 +128,27 @@ def start_simulation():
 
             # now create the simulator objct with all the infromation
             executing = Simulator(width, height, car_list)
-            executing.run()  # this would show moves and collisions of the cars
+            executing.run()  
 
-            #RestarT or exit commands
+           
             print("\n\nPlease choose from the following options: \n\n")
-            print("\n[1] Start Over")  # restart everything
-            print("[2] Exit") # exit the appliction
+            print("\n[1] Start Over")  #
+            print("[2] Exit") 
 
-             # take user input again
+            
             again = input().strip()
 
             if again == '1': # if u/user chose to start again, call the same main function
                 break  # exit inner loop and restart from the top again
             else:
                 print("\nThank you for running the simulation. Goodbye!")
-                return  # fully exit the simulation function
+                return  
 
 
         else:
-            # if user can enter something that isn't 1 or 2
+           
             print("Invalid option. Type 1 or 2.")
 
 
-if __name__ == "__main__": # this is the main function to check
-    start_simulation()  # if user runs this file directly, start the whole sim
+if __name__ == "__main__":
+    start_simulation()  
