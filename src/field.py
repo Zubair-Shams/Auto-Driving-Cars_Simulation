@@ -1,8 +1,8 @@
 # src/field.py
 
-"""it is  Stores the field size (width and height)Provides method to check if a car's position is within bounds
-"""
+
 class Field:
+    """it is  Stores the field size (width and height)Provides method to check if a car's position is within bounds"""
     def __init__(self, weidth, heights):
         self.weidth = weidth
         self.heights = heights

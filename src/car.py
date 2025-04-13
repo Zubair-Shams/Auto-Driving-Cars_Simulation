@@ -1,6 +1,7 @@
 # car.py
 
 class Car:
+
     # storing the Directinos in clockwise order for the rotations
     DIRECTIONS = ['N', 'E', 'S', 'W']
 
@@ -18,13 +19,14 @@ class Car:
         self.y = y                    #  starting y position
         self.direction = direction    # N/S/E/W that on which  way car facing toward
         self.active = True             # use to make the car as hit/dead if it is crashes
+    
 
 # ****************************** Rotation Toward Left ***************************
 
-""" Turning the car left (90 degrees). Finds which direction the car is facing right now, moving one step back in the direction list 
-If it going before the first one, it jumps to the last oneUpdates the car  direction after turnning"""
-    def rotate_left(self):
 
+    def rotate_left(self):
+        """ Turning the car left (90 degrees). Finds which direction the car is facing right now, moving one step back in the direction list 
+If it going before the first one, it jumps to the last oneUpdates the car  direction after turnning"""
         curr_index = Car.DIRECTIONS.index(self.direction)
 
         new_indx = curr_index - 1
@@ -56,9 +58,10 @@ If it going before the first one, it jumps to the last oneUpdates the car  direc
         current_dir = self.direction
 
         move_values = Car.MOVES[current_dir]  # like (0, 1) if facing North
-
-        direction_x = move_values[0]  # how much x should change
-        direction_y = move_values[1]  # how much y should change
+        
+        # how much x and y should change
+        direction_y = move_values[1]  
+        direction_x = move_values[0]  
 
         # calculate new x and y if car goes forward
         new_x = self.x + direction_x
